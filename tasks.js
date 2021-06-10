@@ -68,6 +68,7 @@ function unknownCommand(c){
 function hello(){
   console.log('hello!')
 }
+// that shows us the list of options to do
 function help(){
   console.log('quit\nq\nexit\nhelp')
 }
