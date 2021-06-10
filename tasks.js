@@ -40,7 +40,7 @@ function onDataReceived(text) {
   }else if(text === 'help\n'){
       help();
   }
-  else if(text.slice(0,5) === 'hello'){
+  else if(text.slice(0,5) ===  'hello'){
     hello(text);
   }  
   else{
@@ -74,7 +74,7 @@ function hello(text){
 }
 // that shows us the list of options to do
 function help(){
-  console.log('quit\nq\nexit\nhelp')
+  console.log('quit\nq\nexit\nhello\nhelp')
 }
 
 
