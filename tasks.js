@@ -36,6 +36,8 @@ function startApp(name){
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n' || text === 'q\n') {
     quit();
+  }else if(text === 'help\n'){
+      help();
   }
   else if(text === 'hello\n'){
     hello();
@@ -65,6 +67,9 @@ function unknownCommand(c){
  */
 function hello(){
   console.log('hello!')
+}
+function help(){
+  console.log('quit\nq\nexit\nhelp')
 }
 
 
