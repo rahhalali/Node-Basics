@@ -33,6 +33,7 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
+ var lists = [];
 function onDataReceived(text) {
  
   if (text === 'quit\n' || text === 'exit\n' || text === 'q\n') {
@@ -42,6 +43,12 @@ function onDataReceived(text) {
   }
   else if(text.slice(0,5) ===  'hello'){
     hello(text);
+  }else if(text === 'list\n'){
+    List();
+  }else if(text.slice(0,3)=== 'add'){
+    add(text);
+  }else if(text.slice(0,6)==='remove'){
+    remove(text.slice(6));
   }  
   else{
     unknownCommand(text);
@@ -68,6 +75,7 @@ function unknownCommand(c){
  */
 function hello(text){
   const text1 = text.replace(/ +/g, " ");
+  console.log("this is text1"+text1);
   const text2 =text1.trim()+"!";
   console.log(text2);
   
@@ -76,7 +84,37 @@ function hello(text){
 function help(){
   console.log('quit\nq\nexit\nhello\nhelp')
 }
+/*the lists of the tasks are :
+1)add new word exit and char q to stop running the program
+2)add help function to see the options that u have 
+3)handle the hello function 
+*/
 
+function List(){
+  for (var i=0; i<lists.length;i++){
+    console.log(i+" "+lists[i]+"\n");
+  }
+  
+}
+function add(text){
+    text=text.slice(3);
+    text=text.trim();
+    if(text != ""){
+      lists.push(text);
+    }else{
+      console.log("error u cant add nothing");
+    }
+}
+function remove(text){
+  text = text.trim();
+  if(text == ""){
+   lists.pop();
+  }else if(text == "1"){
+    lists.shift();
+  }else if(text == "2"){
+    lists.splice(1,1);
+  }
+}
 
 /**
  * Exits the application
