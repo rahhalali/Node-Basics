@@ -34,7 +34,7 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  if (text === 'quit\n' || text === 'exit\n' || text === 'q\n') {
     quit();
   }
   else if(text === 'hello\n'){
@@ -74,7 +74,7 @@ function hello(){
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!')
+  console.log("Quitting now, goodbye!");
   process.exit();
 }
 
