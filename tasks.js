@@ -15,6 +15,7 @@ function startApp(name){
   process.stdin.on('data', onDataReceived);
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
+  load();
 }
 
 
@@ -37,6 +38,7 @@ function startApp(name){
 function onDataReceived(text) {
  
   if (text === 'quit\n' || text === 'exit\n' || text === 'q\n') {
+    save();
     quit();
   }else if(text === 'help\n'){
       help();
@@ -116,12 +118,12 @@ function List(){
 
 function check(text){
   text1=text.slice(0,5);
-  text1=text1.trim();
-  if(text1 != ""){
+  text2=text1.trim();
+  if(text2 != ""){
     for(var i=0;i<lists.length;i++){
       if (i == "1"){
-        var LI =lists[i].slice(3);
-          lists[i]=lists[i].replace(lists[i],Info[0].check.concat(LI));
+        var LI =lists[i-1].slice(3);
+          lists[i-1]=lists[i-1].replace(lists[i-1],Info[0].check.concat(LI));
           
       }
     }
@@ -131,12 +133,12 @@ function check(text){
 }
 function uncheck(text){
   text1=text.slice(0,7);
-  text1=text1.trim();
-  if(text1 != ""){
+  text2=text1.trim();
+  if(text2 != ""){
     for(var i=0;i<lists.length;i++){
       if (i == "1"){
-        var LI =lists[i].slice(3);
-          lists[i]=lists[i].replace(lists[i],Info[0].uncheck.concat(LI));
+        var LI =lists[i-1].slice(3);
+          lists[i-1]=lists[i-1].replace(lists[i-1],Info[0].uncheck.concat(LI));
           
       }
     }
@@ -185,6 +187,22 @@ function getInfo(){
     check:"[✓]"
   }];
   return LIST;
+}
+function save(){
+const fs = require('fs');
+let data = JSON.stringify(lists, null, 2);
+fs.writeFile('database.json', data, (err) => {
+    if (err) throw err;
+    console.log('Data written to file');
+});
+}
+function load(){
+const fs = require('fs');
+fs.readFile('database.json', (err, data) => {
+    if (err) throw err;
+    lists = JSON.parse(data);
+});
+
 } 
 
 
