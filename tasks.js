@@ -90,6 +90,8 @@ function hello(text){
 }
 // that shows us the list of options to do
 function help(){
+  const Check ="to make the list done ";
+  const Uncheck ="To make the list not done";
   const exit="To stop the program";
   const q="To stop the program";
   const quit="To stop the program";
@@ -97,7 +99,7 @@ function help(){
   const remove="To remove something from list";
   const list ="To the list";
   const Hello="To say hello or hello ...;"
-  console.log("quit:"+exit+"\n exit :"+quit+"q :"+q+"\nremove :"+remove+"\nadd :"+add+"\nlist:"+list+"\nhello:"+Hello+"\n");
+  console.log("quit:"+exit+"\n exit :"+quit+"q :"+q+"\nremove :"+remove+"\nadd :"+add+"\nlist:"+list+"\nhello:"+Hello+"\ncheck: "+Check+"\n uncheck"+Uncheck+"\n");
 }
 /*the lists of the tasks are :
 1)add new word exit and char q to stop running the program
@@ -117,7 +119,7 @@ function check(text){
   text1=text1.trim();
   if(text1 != ""){
     for(var i=0;i<lists.length;i++){
-      if (i == text1){
+      if (i == "1"){
         var LI =lists[i].slice(3);
           lists[i]=lists[i].replace(lists[i],Info[0].check.concat(LI));
           
