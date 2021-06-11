@@ -134,7 +134,7 @@ function uncheck(text){
   text1=text1.trim();
   if(text1 != ""){
     for(var i=0;i<lists.length;i++){
-      if (i == text1){
+      if (i == "1"){
         var LI =lists[i].slice(3);
           lists[i]=lists[i].replace(lists[i],Info[0].uncheck.concat(LI));
           
