@@ -13,9 +13,10 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
-  load();
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("--------------------");
+  
+ 
 }
 
 
@@ -34,11 +35,31 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
- var lists = [];
+ 
+ const fs = require('fs');
+ var lists;
+ let fileName;
+if(process.argv[2]){
+  fileName = process.argv[2]
+}
+else{
+  fileName = 'database.json'
+}
+try {
+    lists = fs.readFileSync(fileName, 'utf8', function (err,data) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+} catch (error) {
+  lists2= [];
+}
+if(lists.length > 0){lists = JSON.parse(lists)}
+
+
 function onDataReceived(text) {
  
   if (text === 'quit\n' || text === 'exit\n' || text === 'q\n') {
-    save();
     quit();
   }else if(text === 'help\n'){
       help();
@@ -55,10 +76,10 @@ function onDataReceived(text) {
     edit(text.slice(5));
   }
   else if(text.slice(0,5)==='check'){
-    check(text);
+    check(text.slice(5));
   }
   else if(text.slice(0,7)==='uncheck'){
-    uncheck(text);
+    uncheck(text.slice(7));
   }
   else{
     unknownCommand(text);
@@ -117,11 +138,10 @@ function List(){
 }
 
 function check(text){
-  text1=text.slice(0,5);
-  text2=text1.trim();
-  if(text2 != ""){
-    for(var i=0;i<lists.length;i++){
-      if (i == "1"){
+  text=text.trim();
+  if(text != ""){
+    for(var i=0;i<=lists.length;i++){
+      if (i == parseInt(text)){
         var LI =lists[i-1].slice(3);
           lists[i-1]=lists[i-1].replace(lists[i-1],Info[0].check.concat(LI));
           
@@ -129,14 +149,13 @@ function check(text){
     }
   }else{
     console.log("hello khaldon nothing to do,go backward!...")
-  }
-}
+  }}
 function uncheck(text){
   text1=text.slice(0,7);
   text2=text1.trim();
   if(text2 != ""){
-    for(var i=0;i<lists.length;i++){
-      if (i == "1"){
+    for(var i=0;i<=lists.length;i++){
+      if (i == parseInt(text2)){
         var LI =lists[i-1].slice(3);
           lists[i-1]=lists[i-1].replace(lists[i-1],Info[0].uncheck.concat(LI));
           
@@ -160,27 +179,31 @@ function add(text){
 function remove(text){
   text = text.trim();
   if(text<=lists.length){
+
   if(text == ""){
    lists.pop();
-  }else if(text == "1"){
-    lists.shift();
-  }else if(text == "2"){
-    lists.splice(1,1);
   }
+    for(var i=0;i<lists.length;i++){
+      if(parseInt(text) == i){
+        lists.splice(i,1);
+      }
+    }
+   
 }else{
   console.log("you enter a number greater than length of the list");
 }}
 function edit(text){
   if(text == ""){
     console.log("u cant edit anything");
-  }else if(text.charAt(0) == "1"){
-    var tex=text.slice(2);
-    lists.splice(0,2,tex);
-  }else {
-      lists.pop();
-      lists.push(text);
   }
+  var t=text.charAt(0);
+  var t2=parseInt(t);
+  var t3=text.slice(2);
+  for(var i=0;i<lists.length;i++){
+    if(t2 == i){
+    lists[i]=Info[0].uncheck.concat(t3);
 }
+  }}
 function getInfo(){
   const LIST =[{
     uncheck:"[ ]",
@@ -188,23 +211,6 @@ function getInfo(){
   }];
   return LIST;
 }
-function save(){
-const fs = require('fs');
-let data = JSON.stringify(lists, null, 2);
-fs.writeFile('database.json', data, (err) => {
-    if (err) throw err;
-    console.log('Data written to file');
-});
-}
-function load(){
-const fs = require('fs');
-fs.readFile('database.json', (err, data) => {
-    if (err) throw err;
-    lists = JSON.parse(data);
-});
-
-} 
-
 
 /**
  * Exits the application
@@ -212,8 +218,11 @@ fs.readFile('database.json', (err, data) => {
  * @returns {void}
  */
 function quit(){
+  fs.writeFile(fileName, JSON.stringify(lists, null, 1) ,'utf8', function (err) {
+    if (err) throw err;
   console.log("Quitting now, goodbye!");
   process.exit();
+  });
 }
 
 // The following line starts the application
