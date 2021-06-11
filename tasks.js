@@ -82,7 +82,14 @@ function hello(text){
 }
 // that shows us the list of options to do
 function help(){
-  console.log('quit\nq\nexit\nhello\nhelp')
+  const exit="To stop the program";
+  const q="To stop the program";
+  const quit="To stop the program";
+  const add ="To add something to the list";
+  const remove="To remove something from list";
+  const list ="To the list";
+  const Hello="To say hello or hello ...;"
+  console.log("quit:"+exit+"\n exit :"+quit+"q :"+q+"\nremove :"+remove+"\nadd :"+add+"\nlist:"+list+"\nhello:"+Hello+"\n");
 }
 /*the lists of the tasks are :
 1)add new word exit and char q to stop running the program
