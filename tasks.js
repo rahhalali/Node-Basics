@@ -52,6 +52,12 @@ function onDataReceived(text) {
   }else if(text.slice(0,4)==='edit'){
     edit(text.slice(5));
   }
+  else if(text.slice(0,5)==='check'){
+    check(text);
+  }
+  else if(text.slice(0,7)==='uncheck'){
+    uncheck(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -99,16 +105,50 @@ function help(){
 3)handle the hello function 
 */
 let Info =getInfo();
+
 function List(){
   for (var i=0; i<lists.length;i++){
-    console.log(Info[0].unchecked+" "+lists[i]+"\n");
+    console.log(lists[i]);
   }
 }
+
+function check(text){
+  text1=text.slice(0,5);
+  text1=text1.trim();
+  if(text1 != ""){
+    for(var i=0;i<lists.length;i++){
+      if (i == text1){
+        var LI =lists[i].slice(3);
+          lists[i]=lists[i].replace(lists[i],Info[0].check.concat(LI));
+          
+      }
+    }
+  }else{
+    console.log("hello khaldon nothing to do,go backward!...")
+  }
+}
+function uncheck(text){
+  text1=text.slice(0,7);
+  text1=text1.trim();
+  if(text1 != ""){
+    for(var i=0;i<lists.length;i++){
+      if (i == text1){
+        var LI =lists[i].slice(3);
+          lists[i]=lists[i].replace(lists[i],Info[0].uncheck.concat(LI));
+          
+      }
+    }
+  }else{
+    console.log("hello khaldon nothing to do,go backward!...")
+  }
+}
+
 function add(text){
     text=text.slice(3);
     text=text.trim();
     if(text != ""){
-      lists.push(text);
+      var text1=Info[0].uncheck.concat(text);
+      lists.push(text1);
     }else{
       console.log("error u cant add nothing");
     }
@@ -139,8 +179,8 @@ function edit(text){
 }
 function getInfo(){
   const LIST =[{
-    unchecked:"[ ]",
-    checked:"[✓]"
+    uncheck:"[ ]",
+    check:"[✓]"
   }];
   return LIST;
 } 
