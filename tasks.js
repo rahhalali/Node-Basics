@@ -114,6 +114,7 @@ function add(text){
 }
 function remove(text){
   text = text.trim();
+  if(text<=lists.length){
   if(text == ""){
    lists.pop();
   }else if(text == "1"){
@@ -121,7 +122,10 @@ function remove(text){
   }else if(text == "2"){
     lists.splice(1,1);
   }
-}
+}else{
+  console.log("you enter a number greater than length of the list");
+}}
+
 
 /**
  * Exits the application
