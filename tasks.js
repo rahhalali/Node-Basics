@@ -98,10 +98,10 @@ function help(){
 2)add help function to see the options that u have 
 3)handle the hello function 
 */
-
+let Info =getInfo();
 function List(){
   for (var i=0; i<lists.length;i++){
-    console.log(i+" "+lists[i]+"\n");
+    console.log(Info[0].unchecked+" "+lists[i]+"\n");
   }
 }
 function add(text){
@@ -129,13 +129,20 @@ function remove(text){
 function edit(text){
   if(text == ""){
     console.log("u cant edit anything");
-  }else if(text.charAt(0) == parseInt('1')){
+  }else if(text.charAt(0) == "1"){
     var tex=text.slice(2);
     lists.splice(0,2,tex);
-  }else if(typeof text.charAt(0) === "string"){
+  }else {
       lists.pop();
       lists.push(text);
   }
+}
+function getInfo(){
+  const LIST =[{
+    unchecked:"[ ]",
+    checked:"[✓]"
+  }];
+  return LIST;
 } 
 
 
