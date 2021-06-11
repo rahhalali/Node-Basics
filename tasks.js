@@ -49,7 +49,9 @@ function onDataReceived(text) {
     add(text);
   }else if(text.slice(0,6)==='remove'){
     remove(text.slice(6));
-  }  
+  }else if(text.slice(0,4)==='edit'){
+    edit(text.slice(5));
+  }
   else{
     unknownCommand(text);
   }
@@ -101,7 +103,6 @@ function List(){
   for (var i=0; i<lists.length;i++){
     console.log(i+" "+lists[i]+"\n");
   }
-  
 }
 function add(text){
     text=text.slice(3);
@@ -125,6 +126,17 @@ function remove(text){
 }else{
   console.log("you enter a number greater than length of the list");
 }}
+function edit(text){
+  if(text == ""){
+    console.log("u cant edit anything");
+  }else if(text.charAt(0) == parseInt('1')){
+    var tex=text.slice(2);
+    lists.splice(0,2,tex);
+  }else if(typeof text.charAt(0) === "string"){
+      lists.pop();
+      lists.push(text);
+  }
+} 
 
 
 /**
